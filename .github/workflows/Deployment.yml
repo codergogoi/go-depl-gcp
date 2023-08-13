@@ -1,0 +1,28 @@
+name: Deploy on GCE
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        workload_identity_provider: ${{ secrets.WORKLOAD_PROVIDER_ID }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+
+    - name: 'deploy'
+      uses: 'google-github-actions/deploy-appengine@v1'
+
+    - name: Test
+      run: 'curl "${{ steps.deploy.outputs.url }}"'
