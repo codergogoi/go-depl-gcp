@@ -1,6 +1,7 @@
 name: Deploy in App Engine
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
 
