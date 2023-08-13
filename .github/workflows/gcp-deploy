@@ -2,7 +2,7 @@ name: Deploy in App Engine
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "master" ]
 
 env:
   GCE_ZONE: europe-west3-a
